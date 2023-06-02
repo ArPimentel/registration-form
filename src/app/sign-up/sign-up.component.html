@@ -1,0 +1,99 @@
+<body>
+  <form (ngSubmit)="onSubmit()" [formGroup]="signupForm" class="box">
+    <div class="form-group">
+      <label for="firstname">First Name</label>
+      <input
+        type="text"
+        id="firstname"
+        class="form-control"
+        formControlName="firstname"
+      />
+      <div
+        *ngIf="signupForm.controls['firstname'].errors?.['required']"
+        class="text-danger"
+      >
+        First name is required.
+      </div>
+      <div
+        *ngIf="signupForm.controls['firstname'].errors?.['minlength']"
+        class="text-danger"
+      >
+        First name should be at least 2 characters long.
+      </div>
+      <div
+        *ngIf="signupForm.controls['firstname'].errors?.['maxlength']"
+        class="text-danger"
+      >
+        First name cannot exceed 50 characters.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="lastname">Last Name</label>
+      <input
+        type="text"
+        id="lastname"
+        class="form-control"
+        formControlName="lastname"
+      />
+      <div
+        *ngIf="signupForm.controls['lastname'].errors?.['required']"
+        class="text-danger"
+      >
+        Last name is required.
+      </div>
+      <div
+        *ngIf="signupForm.controls['lastname'].errors?.['minlength']"
+        class="text-danger"
+      >
+        Last name should be at least 2 characters long.
+      </div>
+      <div
+        *ngIf="signupForm.controls['lastname'].errors?.['maxlength']"
+        class="text-danger"
+      >
+        Last name cannot exceed 50 characters.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        class="form-control"
+        formControlName="email"
+      />
+      <div
+        *ngIf="signupForm.controls['email'].errors?.['required']"
+        class="text-danger"
+      >
+        Email is required.
+      </div>
+      <div
+        *ngIf="signupForm.controls['email'].errors?.['email']"
+        class="text-danger"
+      >
+        Invalid email format.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        class="form-control"
+        formControlName="password"
+      />
+      <div
+        *ngIf="signupForm.controls['password'].errors?.['required']"
+        class="text-danger"
+      >
+        Password is required.
+      </div>
+    </div>
+
+    <button type="submit" class="btn">Sign Up</button>
+  </form>
+</body>
