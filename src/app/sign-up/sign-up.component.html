@@ -1,100 +1,86 @@
 <body>
-  <form (ngSubmit)="onSubmit()" [formGroup]="signupForm" class="box">
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="box">
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
     <div class="form-group">
-      <h2>Registration Form</h2>
       <label for="firstname">First Name</label>
-      <input
-        type="text"
-        id="firstname"
-        class="form-control"
-        formControlName="firstname"
-      />
+      <input type="text" id="firstname" formControlName="firstname" />
       <div
-        *ngIf="signupForm.controls['firstname'].errors?.['required']"
-        class="text-danger"
+        *ngIf="
+          signupForm.controls['firstname'].invalid &&
+          signupForm.controls['firstname'].touched
+        "
       >
-        First name is required.
+        <div *ngIf="signupForm.controls['firstname'].errors?.['required']">
+          First name is required
+        </div>
+        <div *ngIf="signupForm.controls['firstname'].errors?.['minlength']">
+          First name must be at least 3 characters long
+        </div>
+        <div *ngIf="signupForm.controls['firstname'].errors?.['maxlength']">
+          First name must not exceed 15 characters
+        </div>
       </div>
-      <div
-        *ngIf="signupForm.controls['firstname'].errors?.['minlength']"
-        class="text-danger"
-      >
-        First name should be at least 2 characters long.
-      </div>
-      <div
-        *ngIf="signupForm.controls['firstname'].errors?.['maxlength']"
-        class="text-danger"
-      >
-        First name cannot exceed 50 characters.
-      </div>
-    </div>
 
-    <div class="form-group">
-      <label for="lastname">Last Name</label>
-      <input
-        type="text"
-        id="lastname"
-        class="form-control"
-        formControlName="lastname"
-      />
-      <div
-        *ngIf="signupForm.controls['lastname'].errors?.['required']"
-        class="text-danger"
-      >
-        Last name is required.
+      <div>
+        <label for="lastname">Last Name</label>
+        <input type="text" id="lastname" formControlName="lastname" />
+        <div
+          *ngIf="
+            signupForm.controls['lastname'].invalid &&
+            signupForm.controls['lastname'].touched
+          "
+        >
+          <div *ngIf="signupForm.controls['lastname'].errors?.['required']">
+            Last name is required
+          </div>
+          <div *ngIf="signupForm.controls['lastname'].errors?.['minlength']">
+            Last name must be at least 3 characters long
+          </div>
+          <div *ngIf="signupForm.controls['lastname'].errors?.['maxlength']">
+            Last name must not exceed 15 characters
+          </div>
+        </div>
       </div>
-      <div
-        *ngIf="signupForm.controls['lastname'].errors?.['minlength']"
-        class="text-danger"
-      >
-        Last name should be at least 2 characters long.
-      </div>
-      <div
-        *ngIf="signupForm.controls['lastname'].errors?.['maxlength']"
-        class="text-danger"
-      >
-        Last name cannot exceed 50 characters.
-      </div>
-    </div>
 
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        class="form-control"
-        formControlName="email"
-      />
-      <div
-        *ngIf="signupForm.controls['email'].errors?.['required']"
-        class="text-danger"
-      >
-        Email is required.
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" />
+        <div
+          *ngIf="
+            signupForm.controls['email'].invalid &&
+            signupForm.controls['email'].dirty
+          "
+        >
+          <div *ngIf="signupForm.controls['email'].errors?.['required']">
+            Email is required
+          </div>
+          <div *ngIf="signupForm.controls['email'].errors?.['email']">
+            Email is invalid
+          </div>
+        </div>
       </div>
-      <div
-        *ngIf="signupForm.controls['email'].errors?.['email']"
-        class="text-danger"
-      >
-        Invalid email format.
-      </div>
-    </div>
 
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        class="form-control"
-        formControlName="password"
-      />
-      <div
-        *ngIf="signupForm.controls['password'].errors?.['required']"
-        class="text-danger"
-      >
-        Password is required.
+      <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" />
+        <div
+          *ngIf="
+            signupForm.controls['password'].invalid &&
+            signupForm.controls['password'].dirty
+          "
+        >
+          <div *ngIf="signupForm.controls['password'].errors?.['required']">
+            Password is required
+          </div>
+        </div>
       </div>
-    </div>
 
-    <button type="submit" class="btn">Sign Up</button>
+      <button type="submit" [disabled]="signupForm.invalid">
+        Registration
+      </button>
+      <button type="button" (click)="resetForm()">Reset</button>
+    </div>
   </form>
 </body>
