@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-class User {
-  firstname: string = '';
-  lastname: string = '';
-  email: string = '';
-  password: string = '';
-}
+import { User } from './user.model';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,9 +8,9 @@ class User {
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent {
-  user: User = new User();
   signupForm: FormGroup;
-  submitted = false;
+  successMessage: string = '';
+  user: User = new User('', '', '', '');
 
   constructor(private formBuilder: FormBuilder) {
     this.signupForm = this.formBuilder.group({
@@ -28,23 +22,14 @@ export class SignUpComponent {
   }
 
   onSubmit() {
-    this.submitted = true;
-    console.log(this.user);
+    if (this.signupForm.valid) {
+      this.successMessage = 'The form has been successfully submitted!';
+      this.signupForm.reset();
+    } else {
+    }
   }
-
-  get firstname() {
-    return this.signupForm.get('firstname');
-  }
-
-  get lastname() {
-    return this.signupForm.get('lastname');
-  }
-
-  get email() {
-    return this.signupForm.get('email');
-  }
-
-  get password() {
-    return this.signupForm.get('password');
+  resetForm() {
+    this.signupForm.reset();
+    this.successMessage = '';
   }
 }
